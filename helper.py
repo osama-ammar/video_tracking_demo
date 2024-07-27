@@ -66,6 +66,7 @@ def _display_detected_frames(conf, model, st_frame, image, is_display_tracking=N
                    channels="BGR",
                    use_column_width=True
                    )
+    return res_plotted
 
 
 def play_stored_video(conf, model):
@@ -110,21 +111,36 @@ def play_stored_video(conf, model):
         st.sidebar.error("Error uploading video: " + str(e))
 
 
+
     if st.sidebar.button('Detect Video Objects'):
         try:
             print(f"detecting : ",{video_details["path"]})
             vid_cap = cv2.VideoCapture(video_details["path"])
+            video_writer = cv2.VideoWriter_fourcc(*'mp4v')
+            out = None
+            
+            
             st_frame = st.empty()
             while (vid_cap.isOpened()):
                 success, image = vid_cap.read()
                 if success:
-                    _display_detected_frames(conf,
+                    res_plotted=_display_detected_frames(conf,
                                              model,
                                              st_frame,
                                              image,
                                              is_display_tracker,
                                              tracker
                                              )
+                    
+                    if out is None:
+                        # Initialize the video writer
+                        height, width, _ = res_plotted.shape
+                        out = cv2.VideoWriter('.', video_writer, 30.0, (width, height))
+                    
+                    # Write the processed frame to the output video
+                    out.write(res_plotted)
+                             
+                                
                 else:
                     vid_cap.release()
                     break
