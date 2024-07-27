@@ -1,7 +1,7 @@
 # <span style="color:deepskyblue"> Real-time Object Detection and Tracking with YOLOv8 </span>
 
 This repository is an extensive open-source project showcasing the seamless integration of **object detection and tracking** using **YOLOv8** (object detection algorithm), along with **Streamlit** (a popular Python web application framework for creating interactive web apps). The project offers a user-friendly and customizable interface designed to detect and track objects in real-time video streams.
-
+- try it  <https://videotrackingdemo-jzen4azltvfdudnjtb3nk4.streamlit.app/>
 
 ## Requirements
 
@@ -15,7 +15,7 @@ pip install ultralytics streamlit pytube
 
 ## Installation
 
-- Clone the repository: git clone <https://github.com/CodingMantras/yolov8-streamlit-detection-tracking.git>
+- Clone this repository
 - Change to the repository directory: `cd yolov8-streamlit-detection-tracking`
 - Create `weights`, `videos`, and `images` directories inside the project.
 - Download the pre-trained YOLOv8 weights from (<https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt>) and save them to the `weights` directory in the same project.
