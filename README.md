@@ -5,7 +5,7 @@ This repository is an extensive open-source project showcasing the seamless inte
 
 [Watch the video](Rdemo_compressed.mp4)
 
-[![Watch the video](https://youtube/CvPGP7gzo0U/0.jpg)](https://youtube/CvPGP7gzo0U)
+https://github.com/user-attachments/assets/4b5fb553-5527-4fb8-b571-2076627f2d83
 
 ## Requirements
 
