@@ -139,10 +139,12 @@ def play_stored_video(conf, model):
                     
                     # Write the processed frame to the output video
                     out.write(res_plotted)
+                    print("saving .........frame")
                              
                                 
                 else:
                     vid_cap.release()
+                    out.release()
                     break
                 
         except Exception as e:
