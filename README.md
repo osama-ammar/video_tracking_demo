@@ -3,6 +3,8 @@
 This repository is an extensive open-source project showcasing the seamless integration of **object detection and tracking** using **YOLOv8** (object detection algorithm), along with **Streamlit** (a popular Python web application framework for creating interactive web apps). The project offers a user-friendly and customizable interface designed to detect and track objects in real-time video streams.
 - try it  <https://videotrackingdemo-jzen4azltvfdudnjtb3nk4.streamlit.app/>
 
+[Watch the video](Rdemo_compressed.mp4)
+
 ## Requirements
 
 Python 3.6+
