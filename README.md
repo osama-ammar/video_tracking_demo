@@ -5,10 +5,7 @@ This repository is an extensive open-source project showcasing the seamless inte
 
 [Watch the video](Rdemo_compressed.mp4)
 
-<video width="320" height="240" controls>
-  <source src="Rdemo_compressed.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/4b5fb553-5527-4fb8-b571-2076627f2d83
 
 ## Requirements
 
