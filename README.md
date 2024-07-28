@@ -40,6 +40,12 @@ One the model config is done, select a source.
 
 - Click on `Detect Video Objects` button and the selected task (detection/segmentation) will start on the selected video.
 
+## TODO
+
+- [ ] save peopole faces
+- [ ] search for face
+
+
 
 ## Acknowledgements
 
