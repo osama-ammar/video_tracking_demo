@@ -18,8 +18,8 @@ st.set_page_config(
 )
 
 # Main page heading
-st.title("Object Detection And Tracking using YOLOv8")
-
+st.title("Object Detection And Tracking with segmentation using YOLOv8 ")
+st.info("since this app is running on streamlit servers , it will be slow , if you want faster and enhanced workflow , follow instructions and run it locally" )
 # Sidebar
 st.sidebar.header("ML Model Config")
 
