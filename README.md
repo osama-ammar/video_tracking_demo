@@ -44,8 +44,9 @@ One the model config is done, select a source.
 
 - [ ] save peopole faces
 - [ ] search for face
-
-
+- [ ] select best image of person face across many frames
+- each frame has many objects with specific ids :
+- get specific id from many frames (its mask or bbox) get random (then best) frame for this id and save its image on a file
 
 ## Acknowledgements
 

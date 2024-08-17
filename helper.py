@@ -60,28 +60,64 @@ def _display_detected_frames(conf, model, st_frame, image, is_display_tracking=N
         res = model.predict(image, conf=conf)
 
     # # Plot the detected objects on the video frame
-    res_plotted = res[0].plot()
-    st_frame.image(res_plotted,
+    output_fram = res[0].plot()
+    st_frame.image(output_fram,
                    caption='Detected Video',
                    channels="BGR",
                    use_column_width=True
                    )
-    return res_plotted
+    return output_fram
 
+
+def frame_detection(video_details,conf, model, is_display_tracker, tracker):
+    try:
+        frames=[]
+        print(f"detecting : ",{video_details["path"]})
+        vid_cap = cv2.VideoCapture(video_details["path"])
+        video_writer = cv2.VideoWriter_fourcc(*'MJPG')
+        out = None
+        st_frame = st.empty()
+
+        while vid_cap.isOpened():
+            success, frame = vid_cap.read()
+            if not success:
+                break  # Exit loop if no more frames
+
+            # Process frame and detect objects
+            output_fram = _display_detected_frames(conf, model, st_frame, frame, is_display_tracker, tracker)
+            frames.append(output_fram)
+
+            # Initialize the VideoWriter once we know the frame size
+            if out is None:
+                height, width, _ = output_fram.shape
+                output_path = "output_video.avi"  # Define the output path
+                out = cv2.VideoWriter(output_path, video_writer, 30.0, (width, height))
+            
+            # Write the processed frame to the output video
+            out.write(output_fram)
+            print("Saving frame...")
+        
+        # Release resources
+        vid_cap.release()
+        if out is not None:
+            out.release()
+        
+        # Display the video in Streamlit
+        st.write("Processed video:")
+        
+        #viewing the whole video after being processed by uolo
+        # with open(output_path, 'rb') as output_video_file:
+        #     video_bytes = output_video_file.read()
+        # output_video_details={"bytes":video_bytes , "path":os.path.join(os.getcwd(),output_path)}
+        # print(output_video_details["path"])
+        # st.video(output_video_details["bytes"])
+            
+    except Exception as e:
+        st.sidebar.error("Error loading video: " + str(e))
 
 def play_stored_video(conf, model):
     """
     Plays a stored video file. Tracks and detects objects in real-time using the YOLOv8 object detection model.
-
-    Parameters:
-        conf: Confidence of YOLOv8 model.
-        model: An instance of the `YOLOv8` class containing the YOLOv8 model.
-
-    Returns:
-        None
-
-    Raises:
-        None
     """
     
     default_source_vid = st.sidebar.selectbox("Choose a video...", settings.VIDEOS_DICT.keys())
@@ -103,49 +139,10 @@ def play_stored_video(conf, model):
             video_details={"bytes":video_bytes , "path":settings.VIDEOS_DICT.get(default_source_vid)}
             print(f"selecting :",video_details["path"])
 
-
-            
         st.video(video_details["bytes"])
 
     except Exception as e:
         st.sidebar.error("Error uploading video: " + str(e))
 
-
-
     if st.sidebar.button('Detect Video Objects'):
-        try:
-            print(f"detecting : ",{video_details["path"]})
-            vid_cap = cv2.VideoCapture(video_details["path"])
-            video_writer = cv2.VideoWriter_fourcc(*'mp4v')
-            out = None
-            
-            
-            st_frame = st.empty()
-            while (vid_cap.isOpened()):
-                success, image = vid_cap.read()
-                if success:
-                    res_plotted=_display_detected_frames(conf,
-                                             model,
-                                             st_frame,
-                                             image,
-                                             is_display_tracker,
-                                             tracker
-                                             )
-                    
-                    if out is None:
-                        # Initialize the video writer
-                        height, width, _ = res_plotted.shape
-                        out = cv2.VideoWriter('.', video_writer, 30.0, (width, height))
-                    
-                    # Write the processed frame to the output video
-                    out.write(res_plotted)
-                    print("saving .........frame")
-                             
-                                
-                else:
-                    vid_cap.release()
-                    out.release()
-                    break
-                
-        except Exception as e:
-            st.sidebar.error("Error loading video: " + str(e))
+        frame_detection(video_details,conf, model, is_display_tracker, tracker)
